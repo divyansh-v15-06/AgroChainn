@@ -1,0 +1,41 @@
+﻿node.exe : [1m[31mTyp
+eError:[39m[22m 
+Cannot write to 
+immutable here: 
+Immutable variables 
+can only be 
+initialized inline or 
+assigned directly in 
+the constructor.
+At C:\Program Files\nod
+ejs\npx.ps1:29 char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ([1m[31mType   
+ Er...he constructo    
+r.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+  --> contracts/PolicyV
+ault.sol:83:9:
+   |
+83 |         usdc = 
+IERC20(_usdc);
+   |         ^^^^
+
+
+[31m[1mError[22m[39
+m [31m[1mHH600:[22m
+[39m Compilation failed
+
+For more info go to htt
+ps://v2.hardhat.org/HH6
+00 or run Hardhat with 
+--show-stack-traces

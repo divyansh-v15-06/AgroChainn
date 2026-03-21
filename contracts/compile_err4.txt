@@ -1,0 +1,35 @@
+﻿
+
+  LiquidityPool
+    Γ£ö mints shares on stake and returns funds on withdraw (521ms)
+    Γ£ö mints proportional shares for later LPs
+
+  OracleConsumer
+    Γ£ö keeper can update drought index
+    Γ£ö non-keeper cannot update drought index
+    Γ£ö reverts when index > 100
+    Γ£ö returns zero index and zero timestamp for unknown region
+    Γ£ö keeper can transfer keeper role
+    Γ£ö keeper can update ftso registry address
+
+  PolicyVault
+    Γ£ö creates policy and becomes claimable after sustained drought (51ms)
+    Γ£ö allows farmer to claim payout once claimable (56ms)
+    1) prevents non-farmer from claiming
+    Γ£ö expires policy after endTime (44ms)
+    Γ£ö expirePolicy releases capital liability back to pool (39ms)
+    Γ£ö expirePolicy reverts if policy is claimable (trigger active) (41ms)
+    Γ£ö evaluateTrigger reverts on stale oracle data (>48h) (39ms)
+    Γ£ö trigger counter resets when drought index drops below threshold (48ms)
+
+
+  15 passing (1s)
+  1 failing
+
+  1) PolicyVault
+       prevents non-farmer from claiming:
+     AssertionError: Expected transaction to be reverted with reason 'PolicyVault: not farmer', but it reverted with reason 'PolicyVault: Only NFT owner can claim'
+      at Context.<anonymous> (test\PolicyVault.test.js:149:5)
+
+
+

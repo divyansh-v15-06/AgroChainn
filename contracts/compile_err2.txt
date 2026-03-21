@@ -1,0 +1,183 @@
+﻿node.exe : [1m[31mTyp
+eError:[39m[22m 
+Derived contract must 
+override function "_con
+textSuffixLength". Two 
+or more base classes 
+define function with 
+same name and 
+parameter types.
+At C:\Program Files\nod
+ejs\npx.ps1:29 char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: ([1m[31mType   
+ Er...arameter type    
+s.:String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+  --> contracts/PolicyV
+ault.sol:21:1:
+   |
+21 | contract 
+PolicyVault is 
+ERC721Upgradeable, 
+OwnableUpgradeable, 
+ReentrancyGuard, 
+Pausable {
+   | ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+Note: Definition in 
+"ContextUpgradeable": 
+  --> @openzeppelin/con
+tracts-upgradeable/util
+s/ContextUpgradeable.so
+l:31:5:
+   |
+31 |     function 
+_contextSuffixLength() 
+internal view virtual 
+returns (uint256) {
+   |     ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+Note: Definition in 
+"Context": 
+  --> @openzeppelin/con
+tracts/utils/Context.so
+l:25:5:
+   |
+25 |     function 
+_contextSuffixLength() 
+internal view virtual 
+returns (uint256) {
+   |     ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+
+
+[1m[31mTypeError:[39
+m[22m Derived 
+contract must override 
+function "_msgData". 
+Two or more base 
+classes define 
+function with same 
+name and parameter 
+types.
+  --> contracts/PolicyV
+ault.sol:21:1:
+   |
+21 | contract 
+PolicyVault is 
+ERC721Upgradeable, 
+OwnableUpgradeable, 
+ReentrancyGuard, 
+Pausable {
+   | ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+Note: Definition in 
+"ContextUpgradeable": 
+  --> @openzeppelin/con
+tracts-upgradeable/util
+s/ContextUpgradeable.so
+l:27:5:
+   |
+27 |     function 
+_msgData() internal 
+view virtual returns 
+(bytes calldata) {
+   |     ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+Note: Definition in 
+"Context": 
+  --> @openzeppelin/con
+tracts/utils/Context.so
+l:21:5:
+   |
+21 |     function 
+_msgData() internal 
+view virtual returns 
+(bytes calldata) {
+   |     ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+
+
+[1m[31mTypeError:[39
+m[22m Derived 
+contract must override 
+function "_msgSender". 
+Two or more base 
+classes define 
+function with same 
+name and parameter 
+types.
+  --> contracts/PolicyV
+ault.sol:21:1:
+   |
+21 | contract 
+PolicyVault is 
+ERC721Upgradeable, 
+OwnableUpgradeable, 
+ReentrancyGuard, 
+Pausable {
+   | ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+Note: Definition in 
+"ContextUpgradeable": 
+  --> @openzeppelin/con
+tracts-upgradeable/util
+s/ContextUpgradeable.so
+l:23:5:
+   |
+23 |     function 
+_msgSender() internal 
+view virtual returns 
+(address) {
+   |     ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+Note: Definition in 
+"Context": 
+  --> @openzeppelin/con
+tracts/utils/Context.so
+l:17:5:
+   |
+17 |     function 
+_msgSender() internal 
+view virtual returns 
+(address) {
+   |     ^ (Relevant 
+source part starts 
+here and spans across 
+multiple lines).
+
+
+[31m[1mError[22m[39
+m [31m[1mHH600:[22m
+[39m Compilation failed
+For more info go to htt
+ps://v2.hardhat.org/HH6
+00 or run Hardhat with 
+--show-stack-traces
+
