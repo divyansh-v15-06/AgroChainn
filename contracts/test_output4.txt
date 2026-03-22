@@ -1,0 +1,41 @@
+﻿
+
+  LiquidityPool
+    Γ£ö mints shares on stake and returns funds on withdraw (500ms)
+    Γ£ö mints proportional shares for later LPs
+
+  OracleConsumer
+    Γ£ö keeper can update drought index
+    Γ£ö non-keeper cannot update drought index
+    Γ£ö reverts when index > 100
+    Γ£ö returns zero index and zero timestamp for unknown region
+    Γ£ö keeper can transfer keeper role
+    Γ£ö keeper can update ftso registry address
+
+  PolicyVault
+    Γ£ö creates policy and becomes claimable after sustained drought (54ms)
+    Γ£ö allows farmer to claim payout once claimable (47ms)
+    Γ£ö prevents non-farmer from claiming (42ms)
+    Γ£ö expires policy after endTime (39ms)
+    1) expirePolicy sends premium to liquidityPool as LP yield
+    Γ£ö expirePolicy reverts if policy is claimable (trigger active) (41ms)
+    Γ£ö evaluateTrigger reverts on stale oracle data (>48h)
+    Γ£ö trigger counter resets when drought index drops below threshold (40ms)
+
+
+  15 passing (971ms)
+  1 failing
+
+  1) PolicyVault
+       expirePolicy sends premium to liquidityPool as LP yield:
+
+      AssertionError: expected 0 to equal 125000000.
+      + expected - actual
+
+      -0
+      +125000000
+      
+      at Context.<anonymous> (test\PolicyVault.test.js:195:45)
+
+
+

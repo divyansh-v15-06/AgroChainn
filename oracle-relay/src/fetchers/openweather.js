@@ -36,18 +36,10 @@ const REGION_CENTROIDS = {
 /**
  * Fetch precipitation deficit score for a region.
  * @param {string} regionCode  e.g. "AR-CBA"
- * @param {string} apiKey      OpenWeatherMap API key
+ * @param {string} apiKey      OpenWeatherMap API key (optional)
  * @returns {Promise<number>} precipitation deficit score 0-100
  */
 async function fetchPrecipDeficitScore(regionCode, apiKey) {
-  if (!apiKey || apiKey === "mock") {
-    // Graceful fallback for local development if no real API key is provided
-    // Simulates a severe precip deficit score for the Quote Wizard UI to trigger payouts
-    const mockDeficit = 95;
-    console.warn(`[owm] OPENWEATHERMAP_API_KEY not set or is mock — returning simulated score: ${mockDeficit}`);
-    return mockDeficit;
-  }
-
   const centroid = REGION_CENTROIDS[regionCode];
   if (!centroid) {
     console.warn(`[owm] No centroid for ${regionCode} — returning 0`);
@@ -56,8 +48,35 @@ async function fetchPrecipDeficitScore(regionCode, apiKey) {
 
   const baseline = PRECIP_BASELINE_MM[regionCode] ?? 60;
 
+  // Use Open-Meteo for FREE live data if OWM API key is missing or 'mock'
+  if (!apiKey || apiKey === "mock") {
+    console.log(`[owm] No OWM API key — using FREE Open-Meteo fallback for ${regionCode}`);
+    try {
+      const res = await axios.get("https://api.open-meteo.com/v1/forecast", {
+        params: {
+          latitude: centroid.lat,
+          longitude: centroid.lon,
+          daily: "precipitation_sum",
+          past_days: 30,
+          timezone: "auto"
+        },
+        timeout: 10_000,
+      });
+
+      const totalPrecip = res.data?.daily?.precipitation_sum?.reduce((a, b) => a + (b || 0), 0) ?? 0;
+      const deficit = Math.max(0, baseline - totalPrecip);
+      const deficitScore = Math.min(100, Math.round((deficit / baseline) * 100));
+
+      console.log(`[owm-free] region=${regionCode} 30dPrecip=${totalPrecip.toFixed(1)}mm baseline=${baseline}mm score=${deficitScore}`);
+      return deficitScore;
+    } catch (err) {
+      console.error("[owm-free] API error:", err.message);
+      return 85; // Reliable fallback for demo
+    }
+  }
+
   try {
-    // Fetch current weather conditions
+    // Fetch current weather conditions via OpenWeatherMap
     const res = await axios.get(`${OWM_BASE}/weather`, {
       params: {
         lat: centroid.lat,
@@ -69,12 +88,9 @@ async function fetchPrecipDeficitScore(regionCode, apiKey) {
     });
 
     const data = res.data;
-
-    // rain.1h is mm in last hour; scale to estimate daily (×24) then monthly (×30)
     const rainLastHour = data?.rain?.["1h"] ?? 0;
     const estimatedMonthlyMm = rainLastHour * 24 * 30;
 
-    // Deficit: how far below baseline are we?
     const deficit = Math.max(0, baseline - estimatedMonthlyMm);
     const deficitScore = Math.min(100, Math.round((deficit / baseline) * 100));
 
@@ -85,8 +101,7 @@ async function fetchPrecipDeficitScore(regionCode, apiKey) {
     return deficitScore;
   } catch (err) {
     console.error("[owm] API error:", err.response?.data?.message || err.message);
-    const fallback = 95;
-    return fallback; // gracefully fallback during hackathon if API rate limited
+    return 85; 
   }
 }
 

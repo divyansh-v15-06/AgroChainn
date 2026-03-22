@@ -58,7 +58,15 @@ export default function FarmMapPicker({ defaultLat = -31.4, defaultLon = -64.2, 
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={position} />
+          <Marker 
+            position={position} 
+            icon={L.divIcon({
+              className: 'custom-div-icon',
+              html: `<div style="background-color:#FF5733; width:15px; height:15px; border-radius:50%; border:2px solid white; box-shadow: 0 0 15px rgba(255,87,51,0.6); animation: pulse 1.5s infinite;"></div>`,
+              iconSize: [15, 15],
+              iconAnchor: [7, 7]
+            })}
+          />
           <MapClickEvent onChange={handleMapChange} />
         </MapContainer>
         

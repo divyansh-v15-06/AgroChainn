@@ -114,6 +114,12 @@ cd contracts
 npx hardhat run scripts/check-claimable.js --network fuji
 ```
 
+### ⛽ Refilling Gas (Fuji Testnet)
+If the APRA-1 agent logs show a **LOW GAS** warning, visit the official faucet to refill your wallet with free Testnet AVAX:
+- **Faucet Link**: [https://faucet.avax.network/](https://faucet.avax.network/)
+- **Network**: Fuji (C-Chain)
+- **Address**: `0x8c81374EB8ed34Bd5B1dD02937826Da89B033074`
+
 ### 🚀 Quick Start (Local Node Simulation)
 
 #### 1️⃣ Setting up the Command Center

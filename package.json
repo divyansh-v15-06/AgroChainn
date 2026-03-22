@@ -1,0 +1,21 @@
+{
+  "name": "agrochain-root",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AgroChain monorepo (contracts, oracle relay, frontend)",
+  "workspaces": [
+    "contracts",
+    "oracle-relay",
+    "frontend"
+  ],
+  "scripts": {
+    "deploy:local": "npm run deploy -w contracts -- --network localhost && node sync-envs.js",
+    "seed:local": "npm run seed -w contracts -- --network localhost",
+    "test": "npm run test -w contracts",
+    "oracle:local": "cd oracle-relay && node src/index.js",
+    "frontend:local": "cd frontend && npm run dev"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

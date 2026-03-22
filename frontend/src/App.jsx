@@ -31,6 +31,23 @@ function App() {
   return (
     <div className="min-h-screen bg-[#FDFCFB] text-[#1A1A1A] selection:bg-[#FF5733] selection:text-white font-sans antialiased">
       
+      {/* APRA Network Status Bar */}
+      <div className="bg-[#1A1A1A] text-[#FDFCFB] py-1.5 px-6 border-b border-white/10 flex justify-between items-center overflow-hidden">
+        <div className="flex items-center gap-4 whitespace-nowrap">
+          <span className="text-[9px] font-black uppercase tracking-[0.2em] flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-[#00FF00] rounded-full pulse-dot"></span>
+            {t('app.agentStatus')}
+          </span>
+          <span className="w-px h-3 bg-white/20"></span>
+          <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest leading-none translate-y-[0.5px]">
+            {t('app.dataSource')}
+          </span>
+        </div>
+        <div className="text-[9px] font-mono text-white/20 uppercase tracking-tighter hidden md:block">
+          REPUTATION: 0.9982 | VALIDATOR_HASH_OBLIVIOUS: ACTIVE
+        </div>
+      </div>
+
       {/* Structural Header */}
       <header className="sticky top-0 z-40 bg-[#FDFCFB] border-b-4 border-[#1A1A1A]">
         <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">

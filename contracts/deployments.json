@@ -1,10 +1,10 @@
 {
   "mocked": true,
-  "deployedAt": "2026-03-18T17:25:40.560Z",
-  "network": "localhost",
-  "usdc": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-  "oracle": "0x59b670e9fA9D0A427751Af201D676719a970857b",
-  "liquidityPool": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
-  "policyVault": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
-  "reinsurancePool": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319"
+  "deployedAt": "2026-03-21T22:29:55.285Z",
+  "network": "fuji",
+  "usdc": "0x6393426C4d6e5723c412A29835F01216d10dF351",
+  "oracle": "0x506182b2357EFF8844cA4AF63dB12DC6b497100C",
+  "liquidityPool": "0xE7d55A25d705FD293d947391C04e60b9b64cC944",
+  "policyVault": "0xD0CB63D3E060768c0D980fA537B7375fd0dE16ee",
+  "reinsurancePool": "0x1019D14c6fdC0B10f69d76DCCE46E7e2Ec20A44f"
 }

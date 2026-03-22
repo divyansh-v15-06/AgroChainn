@@ -235,9 +235,14 @@ export default function CreatePolicyPage({ onToast }) {
               <span className="uppercase text-[10px] font-black tracking-widest">{t('quote.totalDue')}</span>
               <span className="text-3xl font-black font-mono">${premiumUSD.toLocaleString()} <span className="text-xs">USDC</span></span>
             </div>
-            <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-widest text-[#1A1A1A]/40">
-              <span>{t('quote.oracleConf')}</span>
-              <span>{confidenceIcon} {confidenceStr} • Verified by Oracle</span>
+            <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-widest">
+              <span className="text-[#1A1A1A]/40">{t('quote.oracleConf')}</span>
+              <div className="flex items-center gap-2">
+                 <span className="bg-[#1A1A1A] text-[#FDFCFB] px-2 py-0.5 font-black text-[9px] tracking-tighter animate-pulse">
+                   [●] {t('quote.agentVerified')}
+                 </span>
+                 <span className="text-[#1A1A1A]/40 font-bold">{confidenceIcon} {confidenceStr}</span>
+              </div>
             </div>
           </div>
 

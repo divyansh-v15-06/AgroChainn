@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { WagmiProvider, http } from "wagmi";
-import { hardhat } from "wagmi/chains";
+import { avalanche, avalancheFuji, hardhat } from "wagmi/chains";
 import { RainbowKitProvider, darkTheme, getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./App";
@@ -13,10 +13,12 @@ const queryClient = new QueryClient();
 
 const wagmiConfig = getDefaultConfig({
   appName: "AgroChain",
-  projectId: "b2d28717804961d1ea178b53215f9b40", // using a public demo key instead of process.env to prevent 403 fatal crashes
-  chains: [hardhat],
+  projectId: "b2d28717804961d1ea178b53215f9b40", 
+  chains: [avalancheFuji, avalanche, hardhat],
   transports: {
-    [hardhat.id]: http(import.meta.env.VITE_RPC_URL || "http://127.0.0.1:8545")
+    [avalancheFuji.id]: http("https://api.avax-test.network/ext/bc/C/rpc"),
+    [avalanche.id]: http("https://api.avax.network/ext/bc/C/rpc"),
+    [hardhat.id]: http("http://127.0.0.1:8545")
   }
 });
 

@@ -1,0 +1,127 @@
+﻿
+
+  LiquidityPool
+    Γ£ö mints shares on stake and returns funds on withdraw (494ms)
+    Γ£ö mints proportional shares for later LPs
+
+  OracleConsumer
+    Γ£ö keeper can update drought index
+    Γ£ö non-keeper cannot update drought index
+    Γ£ö reverts when index > 100
+    Γ£ö returns zero index and zero timestamp for unknown region
+    Γ£ö keeper can transfer keeper role
+    Γ£ö keeper can update ftso registry address
+
+  PolicyVault
+    1) creates policy and becomes claimable after sustained drought
+    2) allows farmer to claim payout once claimable
+    3) prevents non-farmer from claiming
+    4) expires policy after endTime
+    5) expirePolicy sends premium to liquidityPool as LP yield
+    6) expirePolicy reverts if policy is claimable (trigger active)
+    7) evaluateTrigger reverts on stale oracle data (>48h)
+    8) trigger counter resets when drought index drops below threshold
+
+
+  8 passing (937ms)
+  8 failing
+
+  1) PolicyVault
+       creates policy and becomes claimable after sustained drought:
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at waitForPendingTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-chai-matchers\src\internal\emit.ts:28:17)
+    at Context.<anonymous> (test\PolicyVault.test.js:51:5)
+  
+
+  2) PolicyVault
+       allows farmer to claim payout once claimable:
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at Context.<anonymous> (test\PolicyVault.test.js:93:5)
+  
+
+  3) PolicyVault
+       prevents non-farmer from claiming:
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at Context.<anonymous> (test\PolicyVault.test.js:134:5)
+  
+
+  4) PolicyVault
+       expires policy after endTime:
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at Context.<anonymous> (test\PolicyVault.test.js:157:5)
+  
+
+  5) PolicyVault
+       expirePolicy sends premium to liquidityPool as LP yield:
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at Context.<anonymous> (test\PolicyVault.test.js:181:5)
+  
+
+  6) PolicyVault
+       expirePolicy reverts if policy is claimable (trigger active):
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at Context.<anonymous> (test\PolicyVault.test.js:208:5)
+  
+
+  7) PolicyVault
+       evaluateTrigger reverts on stale oracle data (>48h):
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at Context.<anonymous> (test\PolicyVault.test.js:238:5)
+  
+
+  8) PolicyVault
+       trigger counter resets when drought index drops below threshold:
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at Context.<anonymous> (test\PolicyVault.test.js:259:5)
+  
+
+
+

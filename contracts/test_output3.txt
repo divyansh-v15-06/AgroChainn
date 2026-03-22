@@ -1,0 +1,48 @@
+﻿
+
+  LiquidityPool
+    Γ£ö mints shares on stake and returns funds on withdraw (508ms)
+    Γ£ö mints proportional shares for later LPs
+
+  OracleConsumer
+    Γ£ö keeper can update drought index
+    Γ£ö non-keeper cannot update drought index
+    Γ£ö reverts when index > 100
+    Γ£ö returns zero index and zero timestamp for unknown region
+    Γ£ö keeper can transfer keeper role
+    Γ£ö keeper can update ftso registry address
+
+  PolicyVault
+    1) creates policy and becomes claimable after sustained drought
+    Γ£ö allows farmer to claim payout once claimable (55ms)
+    Γ£ö prevents non-farmer from claiming (45ms)
+    Γ£ö expires policy after endTime (56ms)
+    2) expirePolicy sends premium to liquidityPool as LP yield
+    Γ£ö expirePolicy reverts if policy is claimable (trigger active) (45ms)
+    Γ£ö evaluateTrigger reverts on stale oracle data (>48h) (48ms)
+    Γ£ö trigger counter resets when drought index drops below threshold (48ms)
+
+
+  14 passing (1s)
+  2 failing
+
+  1) PolicyVault
+       creates policy and becomes claimable after sustained drought:
+     Error: VM Exception while processing transaction: reverted with reason string 'PolicyVault: no oracle data'
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:105)
+    at PolicyVault.createPolicy (contracts/PolicyVault.sol:115)
+    at EdrProviderWrapper.request (C:\Users\smagg\RageByte\node_modules\hardhat\src\internal\hardhat-network\provider\provider.ts:453:41)
+    at HardhatEthersSigner.sendTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-ethers\src\signers.ts:185:18)
+    at send (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:313:20)
+    at Proxy.createPolicy (C:\Users\smagg\RageByte\node_modules\ethers\src.ts\contract\contract.ts:352:16)
+    at waitForPendingTransaction (C:\Users\smagg\RageByte\node_modules\@nomicfoundation\hardhat-chai-matchers\src\internal\emit.ts:28:17)
+    at Context.<anonymous> (test\PolicyVault.test.js:51:5)
+  
+
+  2) PolicyVault
+       expirePolicy sends premium to liquidityPool as LP yield:
+     ReferenceError: oracle is not defined
+      at Context.<anonymous> (test\PolicyVault.test.js:181:5)
+
+
+

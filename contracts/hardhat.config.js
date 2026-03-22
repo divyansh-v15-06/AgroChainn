@@ -1,5 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("dotenv").config();
+require("dotenv").config({ path: "../.env" });
 
 task("fast-forward", "Fast forwards the local blockchain by X days to simulate a payout period")
   .addOptionalParam("days", "Number of days to fast forward", "15")

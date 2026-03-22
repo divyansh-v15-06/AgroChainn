@@ -41,7 +41,10 @@ const resources = {
       "btn.signing": "⏳ Signing Policy…",
       "btn.active": "✓ Policy Active",
       "btn.signAndPay": "Sign & Pay",
-      "msg.protected": "Your farm is protected 🌱"
+      "msg.protected": "Your farm is protected 🌱",
+      "app.agentStatus": "● APRA-1_AGENT_ACTIVE",
+      "app.dataSource": "DATA_SOURCE: OPEN_METEO_SAT",
+      "quote.agentVerified": "APRA-1 AGENT VERIFIED"
     }
   },
   es: {
@@ -83,7 +86,10 @@ const resources = {
       "btn.signing": "⏳ Firmando Póliza…",
       "btn.active": "✓ Póliza Activa",
       "btn.signAndPay": "Firmar y Pagar",
-      "msg.protected": "Campo protegido 🌱"
+      "msg.protected": "Campo protegido 🌱",
+      "app.agentStatus": "● AGENTE_APRA-1_ACTIVO",
+      "app.dataSource": "FUENTE_DE_DATOS: OPEN_METEO_SAT",
+      "quote.agentVerified": "AGENTE APRA-1 VERIFICADO"
     }
   },
   pt: {
@@ -125,7 +131,10 @@ const resources = {
       "btn.signing": "⏳ Assinando Apólice…",
       "btn.active": "✓ Apólice Ativa",
       "btn.signAndPay": "Assinar e Pagar",
-      "msg.protected": "Sua fazenda está protegida 🌱"
+      "msg.protected": "Sua fazenda está protegida 🌱",
+      "app.agentStatus": "● AGENTE_APRA-1_ATIVO",
+      "app.dataSource": "FONTE_DE_DADOS: OPEN_METEO_SAT",
+      "quote.agentVerified": "AGENTE APRA-1 VERIFICADO"
     }
   }
 };

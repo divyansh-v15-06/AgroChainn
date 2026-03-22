@@ -67,7 +67,7 @@ async function fetchCurrentTemp(regionCode, apiKey) {
 /**
  * Compute a composite drought score for a given region.
  * @param {string} regionCode  e.g. "AR-CBA"
- * @param {string} owmApiKey   OpenWeatherMap API key
+ * @param {string} owmApiKey   OpenWeatherMap API key (optional)
  * @returns {Promise<Object>} containing noaa, ndvi, precip, riskScore
  */
 async function computeDroughtScore(regionCode, owmApiKey) {
@@ -77,15 +77,26 @@ async function computeDroughtScore(regionCode, owmApiKey) {
     fetchCurrentTemp(regionCode, owmApiKey),
   ]);
 
-  // NDVI proxy: if temp is >5°C above mean and precip is low → vegetation stress
+  // NDVI proxy: Vegetation Stress Index
+  // Combines soil moisture failure (noaaScore) with current heat stress (temperature anomaly)
   const tempBaseline = TEMP_BASELINE[regionCode] ?? 20;
   let ndviProxy = 0;
   if (currentTemp !== null) {
     const tempAnomaly = Math.max(0, currentTemp - tempBaseline);
-    // Each degree above mean + precip deficit both contribute
-    ndviProxy = Math.min(100, tempAnomaly * 10 + precipScore * 0.3);
+    
+    // Logic: If there's a heatwave (>5C anomaly) AND moisture is low (noaaScore > 50)
+    // we multiply the impact on vegetation.
+    const heatStress = tempAnomaly * 5; 
+    ndviProxy = Math.min(100, (noaaScore * 0.7) + (heatStress * 0.3));
+  } else {
+    // If temp fetch fails, rely 100% on soil moisture for the proxy
+    ndviProxy = noaaScore;
   }
 
+  // Composite Score Calculation:
+  // 40% Soil Moisture (NOAA/Meteo)
+  // 40% Vegetation Stress (NDVI Proxy)
+  // 20% Precipitation Deficit (OWM/Meteo)
   const composite = Math.round(
     0.4 * noaaScore +
     0.4 * ndviProxy +
@@ -95,7 +106,7 @@ async function computeDroughtScore(regionCode, owmApiKey) {
   const finalScore = Math.min(100, Math.max(0, composite));
 
   console.log(
-    `[scorer] region=${regionCode} noaa=${noaaScore} ndviProxy=${ndviProxy.toFixed(1)} precip=${precipScore}`
+    `[scorer] region=${regionCode} moistureScore=${noaaScore} ndviStress=${ndviProxy.toFixed(1)} precipDeficit=${precipScore}`
   );
 
   const riskScore = inferRiskScore(regionCode, precipScore, ndviProxy);

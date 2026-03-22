@@ -1,0 +1,39 @@
+name: AgroChain Oracle Automation
+
+on:
+  schedule:
+    - cron: '0 6 */2 * *' # Run once every 2 days (Super low gas - Ultra conservative)
+  workflow_dispatch:      # Allow manual trigger
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  update-oracle:
+    runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    defaults:
+      run:
+        working-directory: ./oracle-relay
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Autonomous Risk Assessment
+        env:
+          RPC_URL: ${{ secrets.AVALANCHE_TESTNET_RPC_URL }}
+          KEEPER_PRIVATE_KEY: ${{ secrets.KEEPER_PRIVATE_KEY }}
+          ORACLE_CONSUMER_ADDRESS: ${{ secrets.ORACLE_CONSUMER_ADDRESS }}
+          RUN_ONCE: "true"
+          DEV_MODE: "false"
+        run: node src/index.js
