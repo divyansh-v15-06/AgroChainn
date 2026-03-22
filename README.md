@@ -1,10 +1,13 @@
-# 🌾 AgroChain: The Autonomous Parametric Insurance Protocol
+# 🌾 AgroChain: Resilience for the hand that feeds the world.
 
 **Protecting the 500M+ smallholder farmers who feed the world—one block at a time.**
 
 [![Built for Avalanche](https://img.shields.io/badge/Built%20for-Avalanche-red)](https://www.avax.network/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![ERC-8004](https://img.shields.io/badge/Standard-ERC--8004-blue)](https://github.com/ethereum/ERCs/pull/8004)
+
+### 🎥 [Watch Proof of Resilience (Demo Video)](https://youtu.be/exRLu22T7ag)
+### 🌐 [Live DApp on Avalanche Fuji](https://agrochain-frontend.vercel.app/)
 
 ---
 
@@ -17,7 +20,7 @@ Traditional crop insurance is broken. It relies on slow, bureaucratic claims adj
 - **Zero Paperwork**: No claims to file, no adjusters to wait for.
 - **Instant Liquidity**: Payouts triggered by satellite data, arriving in seconds.
 - **Total Transparency**: Mathematical triggers ensure fair, un-biased payouts.
-- ** Institutional-Grade Security**: Every policy is backed by 120% collateral.
+- **Institutional-Grade Security**: Every policy is backed by 120% collateral.
 
 > **The Goal**: When a drought hits, the money arrives in seconds, not months. No claims, no bias—just pure, automated resilience.
 
@@ -52,14 +55,84 @@ AgroChain is a modular monorepo consisting of:
 
 ---
 
+## 🚀 Live on Avalanche Fuji (Testnet)
+
+The AgroChain protocol is actively deployed and verifiable on the Avalanche Fuji Testnet.
+
+| Contract | Address |
+| :--- | :--- |
+| **PolicyVault** | `0xD0CB63D3E060768c0D980fA537B7375fd0dE16ee` |
+| **LiquidityPool** | `0xE7d55A25d705FD293d947391C04e60b9b64cC944` |
+| **OracleConsumer** | `0x506182b2357EFF8844cA4AF63dB12DC6b497100C` |
+| **ReinsurancePool** | `0x1019D14c6fdC0B10f69d76DCCE46E7e2Ec20A44f` |
+| **MockUSDC** | `0x6393426C4d6e5723c412A29835F01216d10dF351` |
+
+---
+
+---
+
 ## 🛡️ Technical Specification & Solvency
+
+AgroChain is engineered for institutional-grade reliability:
 
 | Parameter | Value | Purpose |
 | :--- | :--- | :--- |
 | **Minimum Persistence** | 14 Days | Nature must meet persistent mathematical conditions. |
 | **Payout Severity** | Tiered | 70-85 Score = 50% Payout / >85 Score = 100% Payout. |
-| **Minimum Solvency (CPR)** | 120% | Institutional-grade underwriting security. |
+| **Minimum Solvency (CPR)** | 120% | Institutional-grade underwriting security (Capital / Liability Ratio). |
 | **Finality** | < 1 Sec | Near-instant settlement on Avalanche C-Chain. |
+| **Premium Rates** | 2.0% - 3.0% | Base rate per crop (Soy, Corn, Wheat) multiplied by risk score. |
+
+### 📈 Solvency Math
+The `LiquidityPool` enforces a strict **120% Collateral-to-Premium Ratio (CPR)**:
+```
+Pool Solvency = (Total Assets) / (Total Locked Liability)
+Policy Creation = Allowed only if Solvency remains ≥ 1.2
+```
+
+### 🔐 Security & Access Control
+- **Non-Custodial**: Payouts are handled by smart contracts, not human adjusters.
+- **Reentrancy Protection**: All financial functions use strict `nonReentrant` guards.
+- **SafeERC20**: Integrated for all USDC interactions to prevent rounding errors or failed transfers.
+- **Owner-Only Admin**: Core parameters (Oracle source, Pool address) are managed by the protocol owner.
+
+---
+
+## 🛠️ Operational Commands (Fuji & Local)
+
+### 📡 Oracle Relay & APRA-1 Agent
+To start the autonomous risk agent:
+```bash
+cd oracle-relay
+node src/index.js
+```
+
+### 📋 Verifying Policy & Payout Status
+To evaluate the 14-day persistence and trigger a payout:
+```bash
+cd contracts
+npx hardhat run scripts/check-claimable.js --network fuji
+```
+
+### 🚀 Quick Start (Local Node Simulation)
+
+#### 1️⃣ Setting up the Command Center
+Open 4 terminal windows in the root directory:
+- **T1 (Blockchain)**: `cd contracts && npx hardhat node`
+- **T2 (Deployment)**: `npm run deploy:local`
+- **T3 (Frontend)**: `npm run frontend:local`
+- **T4 (Agent Logs)**: `npm run oracle:local`
+
+#### 2️⃣ The "Golden Cut" Simulation (Run in T2)
+Watch the full lifecycle in action:
+```bash
+cd contracts
+npx hardhat run scripts/demo-0-buy.js --network localhost
+npx hardhat run scripts/demo-1-drought.js --network localhost
+npx hardhat run scripts/demo-2-warp.js --network localhost
+npx hardhat run scripts/demo-3-payout.js --network localhost
+npx hardhat run scripts/demo-4-claim.js --network localhost
+```
 
 ---
 
@@ -68,48 +141,13 @@ AgroChain is a modular monorepo consisting of:
 -   **Frontend**: React 18, Vite, TailwindCSS (Modern Glassmorphism), Wagmi, RainbowKit.
 -   **Identity**: ERC-8004 (Autonomous Agents)
 -   **Commerce**: x402 (M2M Payments)
--   **Data**: NOAA CPC, OpenWeatherMap, Open-Meteo Satellite Feed.
-
----
-
-## 🚀 Quick Start (Local Node)
-
-### 1️⃣ Setting up the Command Center
-Open 4 terminal windows:
-- **T1 (Blockchain)**: `cd contracts && npx hardhat node`
-- **T2 (Deployment & Execution)**: `cd contracts`
-- **T3 (Frontend)**: `cd frontend && npm run dev`
-- **T4 (Agent Logs)**: `cd oracle-relay && node src/index.js`
-
-### 2️⃣ Pre-Flight Sequence (Run in T2)
-```bash
-# 1. Deploy Protocol
-npx hardhat run scripts/deploy.js --network localhost
-
-# 2. Seed Wallets & Data
-npx hardhat run scripts/fund-accounts.js --network localhost
-npx hardhat run scripts/seedOracle.js --network localhost
-npx hardhat run scripts/seedPool.js --network localhost
-
-# 3. Cloud Sync
-cd .. && node sync-envs.js
-```
-
-### 3️⃣ The "Golden Cut" Simulation (Run in T2)
-Watch the full lifecycle in action:
-```bash
-npx hardhat run scripts/demo-0-buy.js --network localhost    # Purchase AGROPOL NFT
-npx hardhat run scripts/demo-1-drought.js --network localhost # Simulate Climate Crisis
-npx hardhat run scripts/demo-2-warp.js --network localhost    # Warp Persistence Time (15 days)
-npx hardhat run scripts/demo-3-payout.js --network localhost  # Trigger Payout Execution
-npx hardhat run scripts/demo-4-claim.js --network localhost   # Settlement Finalized
-```
+-   **Data (Live Fallback)**: Open-Meteo Satellite Archive API (Soil Moisture & Precip).
 
 ---
 
 ## 🗺️ Roadmap
--   [ ] **Testnet Beta**: Deployment to Avalanche Fuji with Circle USDC integration.
--   [ ] **Real-World Integrations**: Moving from mock satellite data to live NOAA API feeds.
+-   [x] **Testnet Beta**: Deployment to Avalanche Fuji with Circle USDC integration.
+-   [x] **Real-Time Data**: Transitioned from mock data to live Satellite Archive proxies.
 -   [ ] **Mobile Resilience**: PWA with offline support for farmers in low-connectivity regions.
 -   [ ] **Governance**: AGRO token for parametric threshold voting and decentralized risk assessment.
 
